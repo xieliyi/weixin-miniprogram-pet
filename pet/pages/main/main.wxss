@@ -1,15 +1,30 @@
-.sn {
-  margin-top: 20px;
-  color: black
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+
 }
-.userName {
-  margin-top: 20px;
-  color: red
+.userinfo-nickname {
+  color: #aaa;
+  margin: 10rpx;
 }
-.userMobile {
-  color: red
+
+.section {
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  margin-top: 8rpx;
+  margin-bottom: 8rpx;
 }
-.buttonary {
-  margin-top: 50px;
-  color: red
+
+.section__title {
+  color:#993;
+}
+
+.section__text {
+  height: 80rpx;
+  border:  2px solid #993;
+  border-radius: 2%;
+  color: #aaa;
 }

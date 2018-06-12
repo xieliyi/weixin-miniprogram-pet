@@ -1,15 +1,10 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">  授权登录  </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+
+  <view class="view-img" style='background-color: #ffffffff'>
+    <image class="img" mode="widthFix" style='width: 100%;' src="index.jpg"></image>
   </view>
 
-  <button class="scancode" bindtap='click'>扫描二维码</button>
-  <view class="scancode-raw">
-    <text class="scancode-raw-text">{{show}}</text>
+  <view class="view-button">
+    <button  open-type="getUserInfo" bindgetuserinfo="getUserInfo">  授权登录  </button>
   </view>
-</view>
+

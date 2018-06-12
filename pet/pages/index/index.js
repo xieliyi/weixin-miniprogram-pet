@@ -7,64 +7,12 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    show: '',
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  //单击扫描二维码处理函数
-  click:function() {
-    var that = this;
-    var show_res = '';
-    wx.scanCode({
-      success: (res) => {
-        console.log(res)
-        //show_res = '结果：'+ res.result + '\n' + ' 二维码类型：' + res.scanType + '\n 字符集：' + res.charSet + '\n 路径：' +res.path
-        this.setData({
-          show: show_res
-        })
-
-        if (res.result.length == 10){
-          var regNum = new RegExp('[0-9]', 'g');
-          var rsNum = regNum.exec(res.result);
-          if (rsNum){
-
-            show_res = 'SN：' + res.result
-            this.setData({
-              show: show_res
-            })
-
-            wx.navigateTo({
-              url: '../main/main?sn=' + res.result
-            })
-            return
-          }
-        }
-        show_res = '未知设备：' + res.result
-        this.setData({
-          show: show_res
-        })
-      },
-
-      fail: (res) => {
-        console.log(res)
-        show_res = "扫描失败"
-        this.setData({
-          show: show_res
-        })
-      },
-
-      complete: (res) => {
-        console.log("扫描二维码完成！")
-      }
-
-    })
+    sn:null,
   },
 
   onLoad: function (options) {
+    console.log('index onLoad')
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -94,32 +42,43 @@ Page({
 
     //参数二维码传递过来的scene参数
     var scene = decodeURIComponent(options.scene)
-    console.log('scene')
+    console.log('index scene')
     console.log(scene)
-    console.log('options')
+    console.log('index options')
     console.log(options)
-
-    if (options.sn != null){
+    if (options.sn != null) {
       if (options.sn.length == 10) {
         var regNum = new RegExp('[0-9]', 'g');
         var rsNum = regNum.exec(options.sn);
         if (rsNum) {
-
-          var show_res = 'SN：' + options.sn
           this.setData({
-            show: show_res
+            sn: options.sn,
           })
-
-          wx.navigateTo({
-            url: '../main/main?sn=' + options.sn
-          })
-          return
         }
       }
     }
 
+    console.log('hasUserInfo:' + this.data.hasUserInfo)
+    console.log('canIUse:' + this.data.canIUse)
+    var userinfo = wx.getStorageSync('hasUserInfo')
+    userinfo = false
+
+    if (app.globalData.userInfo || this.data.hasUserInfo || userinfo) {
+      wx.redirectTo({
+        url: '../scan/scan?sn=' + this.data.sn
+      })
+    }
 
   },
+
+  onShow: function () {
+    // Do something when show.
+    console.log("index on show!")
+
+    console.log('hasUserInfo:' + this.data.hasUserInfo)
+    console.log('canIUse:' + this.data.canIUse)
+  },
+
   getUserInfo: function(e) {
     console.log('index getUserInfo:')
     console.log(e)
@@ -129,6 +88,10 @@ Page({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
+      wx.setStorageSync('hasUserInfo', true)
+      wx.redirectTo({
+        url: '../scan/scan?sn=' + this.data.sn
+      })
     }
     else {
       this.setData({
@@ -136,4 +99,5 @@ Page({
       })
     }
   }
+
 })

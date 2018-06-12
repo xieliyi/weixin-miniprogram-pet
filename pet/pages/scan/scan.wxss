@@ -1,0 +1,23 @@
+/**scan.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align:top;
+}
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+}
+.userinfo-nickname {
+  color: #aaa;
+  margin: 10rpx;
+}
+
+.scancode-button {
+  margin: 50rpx 250rpx auto 250rpx;
+  border: 4rpx solid #993;
+  border-radius:20px
+}

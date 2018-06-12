@@ -1,5 +1,11 @@
 //app.js
 App({
+
+  globalData: {
+    userInfo: null,
+    hasUserInfo:null,
+  },
+
   onLaunch: function () {
     console.log("app on launch!")
     // 展示本地存储能力
@@ -7,6 +13,9 @@ App({
     logs=Date.now()
     console.log(logs)
     wx.setStorageSync('logs', logs)
+
+    var userinfo = wx.getStorageSync('hasUserInfo')
+    this.globalData.hasUserInfo = userinfo
 
     // 登录
     wx.login({
@@ -30,10 +39,13 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
-
+              this.globalData.hasUserInfo = true
+              wx.setStorageSync('hasUserInfo', this.globalData.hasUserInfo)
+              
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
+                console.log("app getUserInfo userInfoReadyCallback!")
                 this.userInfoReadyCallback(res)
               }
             }
@@ -62,7 +74,4 @@ App({
     console.log("app on page not found!")
   },
 
-  globalData: {
-    userInfo: null
-  }
 })

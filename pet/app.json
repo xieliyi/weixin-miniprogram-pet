@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/scan/scan",
     "pages/logs/logs",
     "pages/main/main",
     "pages/register/register",
@@ -9,7 +10,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "ÎŞÃû",
+    "navigationBarTitleText": "å°æ¯›èŒ¸",
     "navigationBarTextStyle":"black"
   }
 }

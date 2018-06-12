@@ -1,24 +1,41 @@
 <!--main.wxml-->
-<view class="sn">
-  <text>SN：{{snNum}}</text>
+
+<view class="userinfo" style='display: flex;flex-direction: column;align-items: center;'>
+  <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+  <text class="userinfo-nickname">{{userInfo.nickName}}</text>
 </view>
 
-<view class="userName">
-  <text>姓名：{{userData.name}}</text>
-</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
 
-<view class="userMobile">
-  <text>电话：{{userData.mobile}}</text>
-</view>
-
-<block wx:if="{{hasUserInfo && canIUse}}">
-  <view class="buttonary">
-    <block wx:if="{{unregistered}}">
-      <button  type='primary' bindtap='regclick' disabled='{{registered}}'>注册</button>
-    </block>
-    <block wx:else>
-      <button  type='primary' bindtap='delclick' disabled='{{unregistered}}'>删除</button>
-      <button  type='primary' bindtap='modclick' disabled='{{unregistered}}'>修改</button>
-    </block>
+  <view class="section">
+    <view class="section__title">SN序列号</view>
+    <input class="section__text" name="rSN" type='text' placeholder="0123456789" value='{{snNum}}' maxlength='10' disabled='true'/>
   </view>
-</block>
+
+  <view class="section">
+    <view class="section__title">萌宠昵称</view>
+    <input class="section__text" name="rName" type='text' placeholder="萌宠昵称" value='{{userData.name}}' maxlength='10'/>
+  </view>
+
+  <view class="section">
+    <view class="section__title">主人电话</view>
+    <input class="section__text" name="rMobile" type='number' placeholder="主人电话" value='{{userData.mobile}}' maxlength='11' />
+  </view>
+
+  <view class="section">
+    <view class="section__title">地址</view>
+    <input class="section__text" name="rAddress" type='text' placeholder="地址" value='{{userData.address}}' maxlength='50' />
+  </view>
+
+  <block wx:if="{{hasUserInfo && canIUse}}">
+    <view class="buttonary" style='display: flex; margin-top: 30px; align-items: center;'>
+      <block wx:if="{{unregistered}}">
+        <button  type='default' disabled='{{registered}}' style='align-items: center' formType="submit">  保存  </button>
+      </block>
+      <block wx:else>
+        <button  type='default' disabled='{{unregistered}}' style='align-items: center' formType="reset">  删除  </button>
+      </block>
+    </view>
+  </block>
+
+</form>
