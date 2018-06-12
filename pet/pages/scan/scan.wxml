@@ -7,7 +7,7 @@
   </view>
 
   <view class="view-img" style='margin-top: 30rpx;'>
-    <image class="img" mode="widthFix" style='width:100%' src="1.jpg"></image>
+    <image class="img" mode="widthFix" style='width:100%' src="../image/scan.jpg"></image>
   </view>
 
   <button class="scancode-button" bindtap='click' >扫描二维码</button>

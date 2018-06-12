@@ -5,7 +5,6 @@ const app = getApp()
 Page({
   data: {
     userInfo: {},
-    hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
 
     snNum: "",
@@ -16,7 +15,6 @@ Page({
     },
 
     registered: false,
-    unregistered: true,
   },
 
   //事件处理函数 保存
@@ -32,6 +30,7 @@ Page({
       address_text = e.detail.value.rAddress;
     }
 
+    /*
     if (name_text == null || name_text.length == 0) {
       wx.showModal({
         title: '提示',
@@ -39,7 +38,7 @@ Page({
         showCancel: false
       })
       return
-    }
+    }*/
 
     if (mobile_text == null || mobile_text.length == 0) {
       wx.showModal({
@@ -50,6 +49,7 @@ Page({
       return
     }
 
+    /*
     if (address_text == null || address_text.length == 0) {
       wx.showModal({
         title: '提示',
@@ -57,14 +57,14 @@ Page({
         showCancel: false
       })
       return
-    }
+    }*/
 
     this.setData({
       'userData.name': name_text,
       'userData.mobile': mobile_text,
       'userData.address': address_text
     }),
-      
+
     console.log(this.data.snNum)
     console.log(this.data.userData)
 
@@ -77,7 +77,6 @@ Page({
 
     this.setData({
       registered: true,
-      unregistered: false,
     })
   },
 
@@ -93,7 +92,6 @@ Page({
     this.setData({
       userData: null,
       registered: false,
-      unregistered: true,
     })
   },
 
@@ -101,22 +99,20 @@ Page({
     console.log('main on load')
     console.log(option)
 
-    var userd = wx.getStorageSync(option.sn) 
-    if (userd == null || userd.name == null || userd.name.length == 0) {
-      console.log('userd is null')
+    var userd = wx.getStorageSync(option.sn)
+    if (userd == null || userd.mobile == null || userd.mobile.length == 0 ) {
+      console.log('main userd is null')
       this.setData({
         registered: false,
-        unregistered: true,
       })
     }
     else {
       console.log(userd)
       this.setData({
         registered: true,
-        unregistered: false,
       })
     }
-  
+
     this.setData({
       snNum: option.sn,
       userData: userd
@@ -126,7 +122,6 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
       })
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -134,7 +129,6 @@ Page({
       app.userInfoReadyCallback = res => {
         this.setData({
           userInfo: app.globalData.userInfo,
-          hasUserInfo: true
         })
       }
     } else {
@@ -144,7 +138,6 @@ Page({
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: app.globalData.userInfo,
-            hasUserInfo: true
           })
         }
       })
@@ -157,20 +150,16 @@ Page({
     console.log("main on show!")
 
     var userd = wx.getStorageSync(this.data.snNum)
-    console.log(userd)
-
-    if (userd == null || userd.name == null || userd.name.length == 0) {
-      console.log('userd is null')
+    if (userd == null || userd.mobile == null || userd.mobile.length == 0  ) {
+      console.log('main onShow userd is null')
       this.setData({
         registered: false,
-        unregistered: true,
       })
     }
     else {
       console.log(userd)
       this.setData({
         registered: true,
-        unregistered: false,
       })
     }
     this.setData({

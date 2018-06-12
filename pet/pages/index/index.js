@@ -4,10 +4,58 @@ const app = getApp()
 
 Page({
   data: {
-    userInfo: {},
+    userInfo: null,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     sn:null,
+  },
+
+  //事件处理函数
+  bindViewTap: function () {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  },
+
+  //单击扫描二维码处理函数
+  click: function () {
+    wx.scanCode({
+      success: (res) => {
+        console.log(res)
+        if (res.result.length == 10) {
+          var regNum = new RegExp('[0-9]', 'g');
+          var rsNum = regNum.exec(res.result);
+          if (rsNum) {
+            wx.navigateTo({
+              url: '../main/main?sn=' + res.result
+            })
+            return
+          }
+        }
+        console.log('未知设备：' + res.result)
+        wx.showModal({
+          title: '未知设备',
+          content: res.result,
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      },
+
+      fail: (res) => {
+        console.log(res)
+      },
+
+      complete: (res) => {
+        console.log("扫描二维码完成！")
+      }
+
+    })
   },
 
   onLoad: function (options) {
@@ -26,6 +74,11 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+        if (this.data.sn) {
+          wx.navigateTo({
+            url: '../main/main?sn=' + this.data.sn
+          })
+        }
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -58,14 +111,12 @@ Page({
       }
     }
 
-    console.log('hasUserInfo:' + this.data.hasUserInfo)
-    console.log('canIUse:' + this.data.canIUse)
-    var userinfo = wx.getStorageSync('hasUserInfo')
-    userinfo = false
+    console.log('index hasUserInfo:' + this.data.hasUserInfo)
+    console.log('index canIUse:' + this.data.canIUse)
 
-    if (app.globalData.userInfo || this.data.hasUserInfo || userinfo) {
-      wx.redirectTo({
-        url: '../scan/scan?sn=' + this.data.sn
+    if (this.data.sn && this.data.hasUserInfo) {
+      wx.navigateTo({
+        url: '../main/main?sn=' + this.data.sn
       })
     }
 
@@ -75,8 +126,8 @@ Page({
     // Do something when show.
     console.log("index on show!")
 
-    console.log('hasUserInfo:' + this.data.hasUserInfo)
-    console.log('canIUse:' + this.data.canIUse)
+    console.log('index onShow hasUserInfo:' + this.data.hasUserInfo)
+    console.log('index onShow canIUse:' + this.data.canIUse)
   },
 
   getUserInfo: function(e) {
@@ -88,10 +139,11 @@ Page({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
-      wx.setStorageSync('hasUserInfo', true)
-      wx.redirectTo({
-        url: '../scan/scan?sn=' + this.data.sn
-      })
+      if (this.data.sn) {
+        wx.navigateTo({
+          url: '../main/main?sn=' + this.data.sn
+        })
+      }
     }
     else {
       this.setData({
