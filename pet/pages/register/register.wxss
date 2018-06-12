@@ -1,0 +1,8 @@
+.section {
+  margin-top: 10px;
+  color: black
+}
+.btn-area {
+  margin-top: 100px;
+  color: black
+}

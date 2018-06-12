@@ -1,0 +1,15 @@
+.sn {
+  margin-top: 20px;
+  color: black
+}
+.userName {
+  margin-top: 20px;
+  color: red
+}
+.userMobile {
+  color: red
+}
+.buttonary {
+  margin-top: 50px;
+  color: red
+}

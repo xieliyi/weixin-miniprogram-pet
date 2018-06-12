@@ -1,0 +1,15 @@
+<!--modify.wxml-->
+<form bindsubmit="formSubmit" bindreset="formReset" class='modForm'>
+  <view class="section">
+    <view class="section__title">姓名</view>
+    <input name="rName" type='text' placeholder="请输入用户姓名" value='{{inputName}}' maxlength='10'/>
+  </view>
+  <view class="section">
+    <view class="section__title">电话</view>
+    <input name="rMobile" type='number' placeholder="请输入电话号码" value='{{inputMobile}}' maxlength='11'/>
+  </view>
+  <view class="btn-area">
+    <button formType="submit" type="primary" size="default">确定</button>
+    <button formType="reset" type="default" size="default">清除</button>
+  </view>
+</form>

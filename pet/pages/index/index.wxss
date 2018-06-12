@@ -8,7 +8,7 @@
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
-  margin: 20rpx;
+  margin: 10rpx;
   border-radius: 50%;
 }
 
@@ -16,6 +16,14 @@
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 200px;
+.scancode {
+  margin-top: 50px;
+  color: #f00
+}
+
+.scancode-raw{
+  margin-top: 50px;
+  white-space: pre-wrap;
+  flex-wrap: wrap;
+  color: blue
 }

@@ -1,17 +1,26 @@
 //app.js
 App({
   onLaunch: function () {
+    console.log("app on launch!")
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
+    var logs = wx.getStorageSync('logs')
+    logs=Date.now()
+    console.log(logs)
     wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if (res.code) {
+          console.log('登录成功：' + res.code)
+        }
+        else {
+          console.log('登录失败：' + res.errMsg)
+        }
       }
     })
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -33,6 +42,26 @@ App({
       }
     })
   },
+
+  onShow:function(){
+    // Do something when show.
+    console.log("app on show!")
+  },
+
+  onHide:function(){
+    // Do something when hide.
+    console.log("app on hide!")
+  },
+
+  onError:function(msg){
+    console.log("app on error!")
+    console.log(msg)
+  },
+
+  onPageNotFound:function(){
+    console.log("app on page not found!")
+  },
+
   globalData: {
     userInfo: null
   }

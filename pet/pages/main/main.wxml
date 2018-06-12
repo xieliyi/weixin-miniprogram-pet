@@ -1,0 +1,24 @@
+<!--main.wxml-->
+<view class="sn">
+  <text>SN：{{snNum}}</text>
+</view>
+
+<view class="userName">
+  <text>姓名：{{userData.name}}</text>
+</view>
+
+<view class="userMobile">
+  <text>电话：{{userData.mobile}}</text>
+</view>
+
+<block wx:if="{{hasUserInfo && canIUse}}">
+  <view class="buttonary">
+    <block wx:if="{{unregistered}}">
+      <button  type='primary' bindtap='regclick' disabled='{{registered}}'>注册</button>
+    </block>
+    <block wx:else>
+      <button  type='primary' bindtap='delclick' disabled='{{unregistered}}'>删除</button>
+      <button  type='primary' bindtap='modclick' disabled='{{unregistered}}'>修改</button>
+    </block>
+  </view>
+</block>
